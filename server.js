@@ -3,21 +3,21 @@ var session = require('express-session');
 var express = require('express');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var path = require('path');
 
 var app = express();
 
-//allow sessions
-app.use(session({secret: 'app', cookie: { maxAge: 60000}}));
-app.use(cookieParser());
-
 //Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(process.cwd() + '/public'));
+app.use(express.static(__dirname + '/public'));
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(session({ secret: 'app', cookie: { maxAge: 60000 }}));
 
 app.use(bodyParser.urlencoded({
 	extended: false
 }))
-
-//this allows me to use handlebars
+// override with POST having ?_method=DELETE
 app.use(methodOverride('_method'))
 var exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({
@@ -25,10 +25,10 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
-var profileRoutes = require('./controllers/calender.js');
+var cityfix = require('./controllers/cityfix.js');
 
-app.use('/', profileRoutes);
-app.use('/search',profileRoutes)
+app.use('/', cityfix);
+
 
 var PORT = process.env.PORT || 3000;
 
