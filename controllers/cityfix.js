@@ -23,6 +23,11 @@ router.post('/calendersave', function(req, res){
 
 });
 
+router.get('/form', function(req, res){
+  res.sendFile(process.cwd()+'/views/form.html');
+});
+
+
 router.get('/allevents', function(req, res){
   calender.all(function(data){
       res.json(data)
