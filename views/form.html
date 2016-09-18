@@ -91,22 +91,23 @@
            <div class="bleft column_project">
                 <h4 class="text-center"></h4>
                 <form class="form-search">
-                    <input type="text" class="inputp search-query span12" placeholder="Project Name">
-                     <input type="text" class="inputp search-query span12" placeholder="Address">
-                    <select class="">
+                    <input  id="projname" type="text" class="inputp search-query span12" placeholder="Project Name">
+                     <input id="address" type="text" class="inputp search-query span12" placeholder="Address">
+                    <select class="state">
                         <option>State/City</option>
                         <option>Stamford, CT</option>
                         <option>New York, NY</option>
                         <option>Hoboken, NJ</option>
                     </select>
-                    <select class="">
+                    <select class="category">
                         <option>Category</option>
                         <option>Recration</option>
                         <option>Beautification</option>
                         <option>Utility</option>
                     </select>
+                    <div id="userpic1"></div>
                     <div class="upload_img inline">
-                        <input type="file" name="upload"/>
+                        <input id="pic1" type="file" name="upload"/>
                     </div>
                     <textarea id="redex2" class="inputp search-query span12" rows="9" placeholder="Short description"></textarea>
                  <!--    <input type="text" class="inputp search-query span12" placeholder="Payment Gateway"> -->
@@ -117,18 +118,21 @@
             <div class="bleft column_project">
                 <h4 class="text-center"></h4>
                 <form class="form-search">
-                    <input type="text" class="inputp search-query span12" placeholder="Video URL">
+                    <input id="vid" type="text" class="inputp search-query span12" placeholder="Video URL">
+                    <div id="userpic2"></div>
                     <div class="upload_pic1 inline">
-                        <input type="file" name="upload"/>
+                        <input id="pic2" type="file" name="upload"/>
                     </div>
+                    <div id="userpic3"></div>
                     <div class="upload_pic2 inline">
-                        <input type="file" name="upload"/>
+                        <input id="pic3" type="file" name="upload"/>
                     </div>
+                    <div id="userpic4"></div>
                     <div class="upload_pic3 inline">
-                        <input type="file" name="upload"/>
+                        <input id="pic4" type="file" name="upload"/>
                     </div>
-                    <input type="text" class="inputp search-query span12 face" style="padding-left: 30px;" placeholder="Account Name">
-                    <input type="text" class="inputp search-query span12 tweet" style="padding-left: 30px;" placeholder="Account Name"> <textarea id="redex3" class="inputp search-query span12"  rows="5" placeholder="Project description"></textarea>
+                    <input id="face" type="text" class="inputp search-query span12 face" style="padding-left: 30px;" placeholder="Account Name">
+                    <input id="tweet" type="text" class="inputp search-query span12 tweet" style="padding-left: 30px;" placeholder="Account Name"> <textarea id="redex3" class="inputp search-query span12"  rows="5" placeholder="Project description"></textarea>
 <!--                     <div class="upload_html inline">
                         <input type="file" name="upload"/>
                     </div> -->
@@ -164,12 +168,106 @@
 
 
 <script type="text/javascript">
+var rtn = ""
+
+$("#pic1").change(function () {
+    var files = this.files;
+    var reader = new FileReader();
+    name=this.value;
+    reader.onload = function (e) {
+        
+        console.log(e);
+        $("#userpic1").append("<img src='" + e.target.result + "' width='100' height='100' />");
+        $(".upload_img.inline").hide()
+    };
+    reader.readAsDataURL(files[0]);
+});
+$("#pic2").change(function () {
+    var files = this.files;
+    var reader = new FileReader();
+    name=this.value;
+    reader.onload = function (e) {
+        
+        console.log(e);
+        $("#userpic2").append("<img src='" + e.target.result + "' width='100' height='100' />");
+        $(".upload_pic1.inline").hide()
+    };
+    reader.readAsDataURL(files[0]);
+});
+$("#pic3").change(function () {
+    var files = this.files;
+    var reader = new FileReader();
+    name=this.value;
+    reader.onload = function (e) {
+        
+        console.log(e);
+        $("#userpic3").append("<img src='" + e.target.result + "' width='100' height='100' />");
+        $(".upload_pic2.inline").hide()
+    };
+    reader.readAsDataURL(files[0]);
+});
+$("#pic4").change(function () {
+    var files = this.files;
+    var reader = new FileReader();
+    name=this.value;
+    reader.onload = function (e) {
+        
+        console.log(e);
+        $("#userpic4").append("<img src='" + e.target.result + "' width='100' height='100' />");
+        $(".upload_pic3.inline").hide()
+    };
+    reader.readAsDataURL(files[0]);
+});
+
+var ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+var ID_LENGTH = 8;
+
+var generate = function() {
+  for (var i = 0; i < ID_LENGTH; i++) {
+    rtn += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length));
+  }
+  // console.log(rtn)
+}
 
 $('#input').on('click', function(){
 
-    var value = $('#test').val()
-    console.log(value)
 
+generate()
+
+    var name = $('#projname').val().trim()
+    var address= $('#address').val().trim()
+    var state= $('.state').val().trim()
+    var category = $('.category').val().trim()
+    var disc = $('#redex2').val().trim()
+    var video = $('#vid').val().trim()
+    var facebook = $('#face').val().trim()
+    var twitter = $('#tweet').val().trim()
+    var fulldisc = $('#redex3').val().trim()
+    var pic1 = $('#pic1').val().trim()
+    var pic2 = $('#pic2').val().trim()
+    var pic3 = $('#pic3').val().trim()
+    var pic4 = $('#pic4').val().trim()
+    var _id = rtn
+
+
+
+     var Project = {
+        _ID:_id,
+        Name: name,
+        Address: address,
+        State: state,
+        Category: category,
+        Discription: {ShortDiscription:disc, FullDiscription:fulldisc},
+        Video: video,
+        SocialMedia: {FacebookURL:facebook, Twitter:twitter},
+        Pictures: {Static:pic1, Slider_1:pic2, Slider_2:pic3, Slider_3:pic4}
+     }
+    console.log(Project)
+
+    var currentURL = window.location.origin;
+
+    window.location.replace(currentURL+"/");
 })
     
 </script>
