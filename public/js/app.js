@@ -28,6 +28,21 @@ $(document).ready(function(){
     $("#vote2").html("<strong>" + v2 + "</strong><p>Votes</p>");
   })
 
+//im1 & im2 vote adding immitation functions
+    function im1(){
+      v1++;
+      $("#vote1").html("<strong>" + v1 + "</strong><p>Votes</p>");
+    }
+    function im2(){
+      v2++;
+      $("#vote2").html("<strong>" + v2 + "</strong><p>Votes</p>");
+    }
+      setInterval(im1,6000)
+      setInterval(im2,8000)
+
+
+
+
 })
 
 // filter on page
