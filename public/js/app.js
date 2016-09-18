@@ -6,6 +6,13 @@ $(document).ready(function(){
   })
 
 
+
+  $("#input1").on("click",function(){
+
+       	var currentURL = window.location.origin;
+    	window.location.replace(currentURL+"/form");
+  })
+
   $("tag").on("click",function(){
   	counter ++
   	$("whatever").html("<img src='' ><span>"+ counter + "<span>")
