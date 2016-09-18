@@ -6,4 +6,15 @@ $(document).ready(function(){
   })
 
 
+
+
+
+
+
+
+  $("#input1").on("click",function(){
+
+       	var currentURL = window.location.origin;
+    	window.location.replace(currentURL+"/form");
+  })
 })
