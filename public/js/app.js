@@ -5,6 +5,12 @@ $(document).ready(function(){
       console.log(turtle);
   })
 
+
+  $("tag").on("click",function(){
+  	counter ++
+  	$("whatever").html("<img src='' ><span>"+ counter + "<span>")
+  })
+
 })
 
 // filter on page 
