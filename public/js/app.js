@@ -5,5 +5,8 @@ $(document).ready(function(){
       console.log(turtle);
   })
 
-
 })
+
+// filter on page 
+//liking system
+//funding sytstem
